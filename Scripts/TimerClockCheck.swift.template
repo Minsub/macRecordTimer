@@ -1,0 +1,13 @@
+import Foundation
+
+let start = 100.0
+precondition(TimerClock.elapsedSeconds(startUptime: start, nowUptime: 111.99) == 11)
+precondition(TimerClock.elapsedSeconds(startUptime: start, nowUptime: 112.00) == 12)
+precondition(TimerClock.elapsedSeconds(startUptime: start, nowUptime: 113.00) == 13)
+precondition(!TimerClock.isEmphasized(elapsedSeconds: 11, thresholdSeconds: 12))
+precondition(TimerClock.isEmphasized(elapsedSeconds: 12, thresholdSeconds: 12))
+precondition(TimerClock.isEmphasized(elapsedSeconds: 13, thresholdSeconds: 12))
+precondition(TimerClock.elapsedSeconds(startUptime: 100, nowUptime: 105, offset: 30) == 35)
+precondition(TimerClock.blinkPhase(uptime: 10.0) != TimerClock.blinkPhase(uptime: 10.35))
+precondition(TimerClock.blinkPhase(uptime: 10.0) == TimerClock.blinkPhase(uptime: 10.70))
+print("PASS: elapsed time advances through 11s → 12s → 13s; blink phase keeps alternating.")
